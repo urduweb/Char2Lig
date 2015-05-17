@@ -1,14 +1,14 @@
 # Ligature Generator (LigGen)
 
-A simple Bash Shell Script to generate gliphs from a file of ligatures. It uses pango library to draw graphics.
+A simple Bash Shell Script to generate glyphs from a file of ligatures. It uses pango library to draw graphics.
 
-Script               | LigGen
----------------------|------------------------------
-Author               | Sawood Alam
-Organization         | UrduWeb (urduweb.org/mehfil)
-Idea                 | Mohammad Saad
-Licence              | GNU/GPL
-Initial Release Date | Wednesday, March 3, 2010
+Script          | LigGen
+----------------|------------------------------
+Author          | Sawood Alam
+Organization    | UrduWeb (urduweb.org/mehfil)
+Idea            | Mohammad Saad
+Licence         | GNU/GPL
+Initial Release | Wednesday, March 3, 2010
 
 ## USAGE
 
@@ -34,4 +34,5 @@ This package includes this README.md file, a LICENSE file, executable shell scri
 
 ## TODO
 
+- [ ] Extract Urdu to Roman character mapping in a seprate file.
 - [ ] Switch based parameters to override defaults.

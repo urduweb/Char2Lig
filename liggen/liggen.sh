@@ -1,12 +1,11 @@
 #!/bin/bash
-# A simple Bash Shell Script to generate gliphs from a file of ligatures.
+# A simple Bash Shell Script to generate glyphs from a file of ligatures.
 # It uses pango library to draw graphics.
-# Author: UrduWeb.org (Urdu Mehfil)
+# Author: Sawood Alam
+# Organization: UrduWeb (urduweb.org/mehfil)
 # Idea: Mohammad Saad
-# Licence: This Script is released under GNU/GPL terms and conditions.
-# First Release Date: March 3rd, 2010
-# Last Modified: March 10th, 2010
-# Version: 0.2.0
+# Licence: GNU/GPL
+# Initial Release: March 3rd, 2010
 
 # USAGE:
 # 
@@ -21,8 +20,6 @@
 # 
 # 4: If custom output directory is desired
 # >> ./liggen.sh input/file/path ext outpu/directory/path
-# 
-# TODO: Switch based parameters to override defaults.
 
 # Config variables
 FILE="ligatures.txt" # Default ligature file (one ligature per line text file)
