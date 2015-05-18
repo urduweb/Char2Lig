@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # A simple Bash Shell Script to generate glyphs from a file of ligatures.
 # It uses pango library to draw graphics.
 # Author: Sawood Alam
@@ -23,7 +24,7 @@
 
 # Config variables
 FILE="ligatures.txt" # Default ligature file (one ligature per line text file)
-FONT="Nafees" # Default font
+FONT="Nafees Nastaleeq" # Default font
 EXT="svg" # Default output extension
 OPDIR="$EXT/$FONT" # Default output directory
 DPI=3000 # Default resolution
@@ -105,7 +106,7 @@ transliterate(){
   lig=$1
   TEMP=""
   for i in $(seq 0 $((${#lig} - 1))); do
-    if [ ${LOOKUP[${lig:$i:1}]} != "" ]
+    if [ "${LOOKUP[${lig:$i:1}]}" != "" ]
     then
       T="${LOOKUP[${lig:$i:1}]}"
     else
@@ -157,6 +158,7 @@ then
 fi
 
 # Creating output directory if it does not exist
+OPDIR=${OPDIR// /-}
 if [ ! -d "$OPDIR" ]
 then
   mkdir "$OPDIR" -p
@@ -171,6 +173,6 @@ done <"$FILE"
 # Process ending timestamp
 END=$(date +%s)
 
-echo "$CNT ligatures converted in `expr $END - $START` seconds."
+echo "$CNT ligatures converted in `expr $END - $START` seconds and stored in $OPDIR."
 
 exit 0
