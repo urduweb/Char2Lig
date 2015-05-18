@@ -4,4 +4,4 @@ A set of scripts and files to generate ligature based fonts from character based
 
 ## TODO
 
-- [ ] Create a Docker image with all the dependencies and scripts included.
+- [ ] Add glyph import script and dependencies.
