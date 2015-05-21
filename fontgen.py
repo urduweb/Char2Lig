@@ -5,8 +5,10 @@ import fontforge
 import os.path
 from optparse import OptionParser
 
-parser = OptionParser()
+descr = "Python script to generate a font file by importing glyphs"
+usage = "%prog -d <glyphsdir> -o <fontname> [options]"
 
+parser = OptionParser(usage=usage, description=descr)
 parser.add_option("-d", "--dir",
 		action="store", type="string", dest="glyphdir",
 		help="Directory containing glyphs to import", metavar="DIR")
@@ -22,13 +24,12 @@ parser.add_option("-l", "--log",
 parser.add_option("-t", "--type",
 		action="store", type="string", dest="outformat",
 		help="File type of generated font. e.g., sfd or ttf", metavar="OUT_FORMAT", default="sfd")
-
 (options, args) = parser.parse_args()
 
 if not options.glyphdir:
-	raise ValueError("No glyph directory specified")
+	parser.error("No glyph directory specified")
 if not options.font_out:
-	raise ValueError("No output font name specified")
+	parser.error("No output font name specified")
 
 def createGlyph(font,glyphname, glyphformat):
 	font.createChar(-1, glyphname)
