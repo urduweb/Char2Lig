@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Python script to generate a font file using imported glyphs
-# Font can be started from scratch or
-# Glyphs can be imported into an already existing font file
 
 import fontforge
 import os.path
@@ -20,6 +16,12 @@ parser.add_option("-i", "--in",
 parser.add_option("-o", "--out",
 		action="store", type="string", dest="font_out",
 		help="Output font name", metavar="FONT_OUT")
+parser.add_option("-l", "--log",
+		action="store", type="string", dest="logfile",
+		help="Log file", metavar="LOG_FILE", default="log.txt")
+parser.add_option("-t", "--type",
+		action="store", type="string", dest="outformat",
+		help="File type of generated font. e.g., sfd or ttf", metavar="OUT_FORMAT", default="sfd")
 
 (options, args) = parser.parse_args()
 
@@ -28,20 +30,21 @@ if not options.glyphdir:
 if not options.font_out:
 	raise ValueError("No output font name specified")
 
-def createGlyph(font,glyphname):
+def createGlyph(font,glyphname, glyphformat):
 	font.createChar(-1, glyphname)
-	svgPath= options.glyphdir+'/'+glyphname+'.svg'
+	svgPath= os.path.join(options.glyphdir, glyphname+glyphformat)
 	if os.path.isfile(svgPath):
 		font[glyphname].importOutlines(svgPath)
 	else:
-		print svgPath+" is not a valid path.\n"
+		print svgPath, "is not a valid path.\n"
 
 def AddGlyphs(font):
-	logFile= open("log.txt","w")
+	logFile= open(options.logfile,"w")
 	for f in os.listdir(options.glyphdir):
 		(baseName, extName)=os.path.splitext(f)	
+		print "Creating glyph", baseName
 		logFile.write("Creating glyph "+baseName+"\n")
-		createGlyph(font, baseName)
+		createGlyph(font, baseName, extName)
 	logFile.close()
 
 def createFont(strFontName):
@@ -52,4 +55,4 @@ def createFont(strFontName):
 	AddGlyphs(tt)
 	tt.generate(strFontName)
 
-createFont(options.font_out+'.ttf')
+createFont(options.font_out+'.'+options.outformat)
