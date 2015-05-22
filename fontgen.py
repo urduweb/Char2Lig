@@ -24,6 +24,9 @@ parser.add_option("-l", "--log",
 parser.add_option("-t", "--type",
 		action="store", type="string", dest="outformat",
 		help="File type of generated font. e.g., sfd or ttf", metavar="OUT_FORMAT", default="sfd")
+parser.add_option("--emsize",
+		action="store", type="int", dest="emsize",
+		help="em size of the font (default=1000)", metavar="EMSIZE", default=1000)
 (options, args) = parser.parse_args()
 
 if not options.glyphdir:
@@ -39,21 +42,28 @@ def createGlyph(font,glyphname, glyphformat):
 	else:
 		print svgPath, "is not a valid path.\n"
 
-def AddGlyphs(font):
-	logFile= open(options.logfile,"w")
+def AddGlyphs(font, logfile):
 	for f in os.listdir(options.glyphdir):
 		(baseName, extName)=os.path.splitext(f)	
 		print "Creating glyph", baseName
-		logFile.write("Creating glyph "+baseName+"\n")
+		logfile.write("Creating glyph {0}\n".format(baseName))
 		createGlyph(font, baseName, extName)
-	logFile.close()
+	print "Finished adding glyphs"
 
 def createFont(strFontName):
+	logFile= open(options.logfile,"w")
 	if options.font_in:
 		tt=fontforge.open(options.font_in)
 	else:
 		tt=fontforge.font(options.font_out)
-	AddGlyphs(tt)
+	print "Adding Glyphs"
+	AddGlyphs(tt, logFile)
+	print "Setting font em size from", tt.em, "to", options.emsize
+	tt.em = options.emsize
+	logFile.write("Font em size set to {0}\n".format(tt.em))
+	print "Generating font"
 	tt.generate(strFontName)
+	print "Done"
+	logFile.close()
 
 createFont(options.font_out+'.'+options.outformat)
