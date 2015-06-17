@@ -44,6 +44,6 @@ for filename in os.listdir(SVG_DIR_IN):
 			print r
 		else:
 			print "Skipping", filename
-	logFile.write("Skipped "+filename)
+	logFile.write("Skipped {0}\n".format(filename))
 
 logFile.close()
